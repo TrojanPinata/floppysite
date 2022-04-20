@@ -1,0 +1,87 @@
+.top
+{
+	line-height: 1.5;
+	margin-left: 24%;
+	margin-right: 24%;
+	text-align: center;
+}
+
+.center
+{
+	margin-left: 24%;
+	margin-right: 24%;
+	text-align: center;
+}
+
+.strong-center
+{
+    font-weight: bold;
+    margin-left: 24%;
+	margin-right: 24%;
+	text-align: center;
+}
+
+.footer
+{
+    position: fixed;
+	text-align: center;
+    margin-left: 33%;
+	margin-right: 33%;
+	bottom: 15px;
+}
+
+.socials
+{
+    position: fixed;
+	bottom: 15px;
+	text-align: center;
+}
+
+.socials-top
+{
+	text-align: center;
+}
+
+.pic-left
+{
+	margin-left: 24%;
+	text-align: left;
+}
+
+.linktable
+{
+	line-height: 1.75;
+	margin-left: 24%;
+	margin-right: 24%;
+	text-align: center;
+}
+
+/* wait is that copied code i see :v */
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+	 font-family: IBM Plex Sans,monospace;
+}
+
+.wrapper {
+	text-align: center;
+	line-height: 1.25;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 15px auto -35px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.sticky-footer, .push {
+	text-align: center;
+    height: 45px; /* .push must be the same height as .footer */
+}
+
+img {
+	max-width: 40%;
+	height: auto;
+}

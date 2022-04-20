@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="stylesheet.css"> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="img/diskette.png">
+
+    <title>&lt;floppy go brrrrrr&gt;</title>
+</head>
+
+<body>
+    <div id="wrapper" class="wrapper">
+        <div id="top" class="top">
+            <h3>Why Floppy?</h3>
+        </div>
+
+        <div id="desc" class="center">
+            <p>Why floppy, huh? Why choose an antiquated and completely unreliable storage medium for a website? What brought me to actively seek out such an unfeasible idea? Well. I'm not really sure why to be completely honest. It's kind of a cute and quirky way of showing some technical skill while hiding my inability to do any even remotely decent web design. I thought this up during quarantine and I thought the only way to make it even remotely feasible would be a portfolio website that has low traffic and lower storage requirements. Some of the things I have done previously still live on my GitHub, which I don't plan on merging because <i>why would I?</i></p>
+            <br>
+            <p>I guess the best place to start is the hardware, huh. This project runs on Raspberry Pi OS installed on the original Raspberry Pi Model B, with all 512MB of RAM and a SD card that barely has enough room for the OS. I'm using a Sabrent USB floppy drive with a Verbatim High Density 1.44MB disk. The Pi uses a standard 5V 2.1A power supply while the floppy drive pulls 500mA, the limit for the original Pi’s periphery. This does cause a problem, as the floppy drive <i>is a liar</i> and actually draws way more power. The solution to this is to buy one of those powered USB hubs and plug it in. Which I'm going to do eventually, but for now everything has to run locally.</p>
+            <br>
+            <p>The entirety of this website runs on the foundation that images can be stored on a Imgur page and accessed when they need to, and the bulk of the html can be kept on the floppy. I really want this site to have enough sustainability that if the image links were to stop working, the site would remain readable. Currently (as of 18-04-2022), my Pi hasn't been able to power the floppy drive due to its 500mA peripheral limit so I'm just going to keep to the 1.44MB limit and leave the site on SD. In the future, I plan to get some extremely old hardware that I can run this project on with a natively installed floppy drive, or a Pi 3 with the lowest amount of ram I can get. (<i>but like have you seen the pi prices right now!?</i>)</p>
+            <br>
+            <img src="https://i.imgur.com/C6YAijC.jpg" alt="the setup">
+            <br>
+            <br>
+            <br>
+        </div>
+
+    </div>
+
+    <div id="sticky-footer" class="sticky-footer">
+        <a href="index.html">back to homepage</a><br>
+        <a href="https://github.com/TrojanPinata">Github</a> | <a href="mailto:hillbr20@gmail.com">hillbr20@gmail.com</a> | <a href="bhill_resume.pdf">Resume</a> | <a href="https://www.linkedin.com/in/brian-hill-0082161a3/">LinkedIn</a>
+    </div>
+
+</body>
+</html>
