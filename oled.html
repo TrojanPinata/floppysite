@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="stylesheet.css"> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="img/diskette.png">
+
+    <title>&lt;Very Small OLED Screens&gt;</title>
+</head>
+
+<body>
+    <div id="wrapper" class="wrapper">
+        <div id="top" class="top">
+            <h3>Very Small OLED Screens</h3>
+        </div>
+            <!-- June 21, 2022-->
+        <div id="desc" class="center">
+            <p>As of late, I have been experimenting with these really small <a href="https://www.amazon.com/Songhe-0-96-inch-I2C-Raspberry/dp/B085WCRS7C">128x64</a> and <a href="https://www.amazon.com/  Pieces-Display-Module-SSD1306-3-3V-5V/dp/B08CDN5PSJ">128x32</a> screens. They're less than a inch long and run off of a protocol called <a href="https://en.wikipedia.org/wiki/I%C2%B2C">I<sup>2</sup>C</a> which pretty  neatly connects to a Arduino and allows for basic binary color images. So, I made some cool stuff like a clock and a calculator that displays the result on the screen. All good stuff. But what if I wanted to put   something other then a static image on it? What if I wanted to play a whole video on it?</p>
+            <br>
+            <img src="https://i.imgur.com/3jR7rm1.jpg" alt="Arduino Uno w/ 128x64 OLED I2C Screen">
+            <br>
+            <p>I initially thought "oh no big deal, someone had to have done this before me." But color me surprised when I was hard pressed to find anything about this. I hadn't really grasped why this was so difficult until now,    when I realized the true weight of what I was trying to do. The goal was to play <i>video</i> on a <i>Arduino</i>. I had been using a Arduino uno at this point and I didn't really understand if that would be a problem  yet, so I decided to start writing code and if it didn't work out, I could post it in a GitHub repository with the caption "look what I thought would work :p" and be on with my day.</p>
+            <br>
+            <p>I initially thought of this while I was at work. I was kind of excited to start working on this project because it was a chance for me to work on a project with a clear goal outside of school. I find that it is a    whole different kind of experience working for yourself without a deadline or arbitrary constraints (or other classes for that matter) and overall, I find my code is more efficient and more <i>me</i>. So when I got home   I spent the next two days writing the host side of the code.</p>
+            <br>
+            <p>To start out everything we need to shrink the video and cut it into its frames. I could have written code to do this, but I had premier open and it is remarkably easier to do this on a video by video level. I ended  up changing the aspect ratio due to the screen's weird size of 2:1, as I really didn't want to write 2 days’ worth of code to do something simple like this. As for cutting the videos into frames, that was even easier.   There is a free tool for AI interpolation of video for the purpose of increasing frame rate called <a href="https://grisk.itch.io/dain-app">DAIN</a>. It's pretty good, goes a bit hard on my GPU, but I keep it around. It  has a step in its rendering process where it cuts the original video into its frames and I found it really quick and easy to just do that. Cutting out simple steps like these was just way quicker then finding the right  libraries and downloading software or switching OS's to do this.</p>
+            <br>
+            <p>Regardless, once I had a folder full of frames, I had to figure out a way to get these onto the board. Ok, easy enough, the Uno has a serial port so we'll just send the each frame there. But this is the first major  problem in a series of problems, the uno has a frequency of 16MHz. That is usually fine, but it is remarkably slow. So slow in fact, that two major things occur. One, the number of operations is severely limited, and    two, max baud rate is limited to around 84000 baud. Alright, so what does this mean.</p>
+            <br>
+            <p>For instance, let's say that the video we want to play is 24 frames per second. That is, assuming we can get the whole frame through serial and process it locally, 196704 bits per second, or around 24588 baud. Which    is within the limits, however, there is one major problem. The processor cannot process the incoming data fast enough to get the next bit and display it on the screen. So, we need to be clever about how we go about  this. The way I ended up doing this is simple. I take 8 bits at a time and combine them into a byte, a single unsigned character in C, and take eight bytes and combine them into a packet (which comes out to exactly one  line) and send them to the Arduino. This works because at low baud, there is low percentage error (or at least I'm going to pretend that is the case for now lol). The Arduino will read this data and unpack it into bits  which it can process and display 64 packets on the screen at once.</p>
+            <br>
+            <p>So let's do it. I ended up using <a href="https://www.anaconda.com/">Anaconda</a> for python as it has a library called <a href="https://opencv.org/">OpenCV</a>, which when called with the cv2 library in python, has    fantastic image processing tools which can convert images to binary colors. I ran this in python and before the images were saved to a file, dumped the bare code into a text file. In retrospect, I should have used a    binary file, as that would have cut down on size, but this made it easier to call readlines() later. This data is what I then compressed into bytes and packets and sent to the Arduino. I then wrote a neat injector   program which initialized the Arduino and put them both on a serial port and send all the data at once. But there's a problem I haven't told you yet. This doesn't work.</p>
+            <br>
+            <p><a href="https://imgur.com/LEraV45">Short video of the result</a></p>
+            <img src="https://i.imgur.com/wQw15g1.jpg" alt="image of screen writing line by line">
+            <br>
+            <p>Here’s the problem. The Arduino uno has exactly 2 kilobytes of memory. The oled screen takes 1 kilobyte for itself. The screen has 8196 pixels, and to flash a bitmap to it, it needs 8196 pixels, because the tiny  screen takes bytes not bits. So, it takes too much memory to store each frame locally. This is a problem, because it already takes a good bit to decode the data, but it also has to be written line by line which results  in the image above.</p>
+            <br>
+            <p>I need to change my approach. The new plan is to first, upgrade the board. Arduino Mega 2560 with its 8kb of memory. That will allow me to store the whole image in the buffer and push it to the screen and then    repeat. Then the second major change is actually the way I'm going to get each frame to the board. I'm going to do two things. First, I'm going to take a page out of VGA's playbooks, and sort of signal when each frame  starts and stops. I think this will make it easier to get full frames. Second, I <i>might</i> try and send each pixel as its own byte to the board. This would mean no decoding and would allow my pc to do all of the   heavy lifting and reduce the strain on the processor. I wrote pretty heavy code for it to run, and I have no experience in serial connections until now, so I think this might be preferable as the mega has the same  processor as the uno.</p>
+            <br>
+            <p><a href="https://github.com/TrojanPinata/serial_oled">Here's the Github page for this project</a></p>
+            <br>
+            <p>I'll update when I get something working.</p>
+            <br>
+            <img src="https://i.imgur.com/yp73Jso.jpg" alt="See you then!">
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+    </div>
+
+    <div id="sticky-footer" class="sticky-footer">
+        <a href="index.html">back to homepage</a><br>
+        <a href="https://github.com/TrojanPinata">Github</a> | <a href="mailto:hillbr20@gmail.com">hillbr20@gmail.com</a> | <a href="media/bhill_resume.pdf">Resume</a> | <a href="https://www.linkedin.com/in/brian-hill-0082161a3/">LinkedIn</a>
+    </div>
+
+</body>
+</html>
