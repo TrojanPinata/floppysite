@@ -63,17 +63,17 @@
 }
 
 html, body {
-    height: 100%;
-	 font-family: IBM Plex Sans,monospace;
+   height: 100%;
+	font-family: IBM Plex Sans,monospace;
 }
 
 .wrapper {
 	text-align: center;
 	line-height: 1.25;
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 15px auto -35px; /* the bottom margin is the negative value of the footer's height */
+   min-height: 100%;
+   height: auto !important;
+   height: 100%;
+   margin: 15px auto -35px; /* the bottom margin is the negative value of the footer's height */
 }
 
 .sticky-footer, .push {
