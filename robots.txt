@@ -1,0 +1,7 @@
+User-agent: Googlebot
+User-agent: AdsBot-Google
+User-agent: *
+Disallow: /
+# redundant for uncertainty
+Sitemap: https://brianchill.us/sitemap.xml
+Sitemap: https://www.brianchill.us/sitemap.xml

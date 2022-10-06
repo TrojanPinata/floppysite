@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://brianchill.us/</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/hardware.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/lighting.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/juliette.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/deej.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/homelab.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/oled.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/zipf.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/keyboard.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/schoolprojects.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/media/bhill_resume.pdf</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://brianchill.us/index.html</loc>
+  <lastmod>2022-10-06T04:00:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
